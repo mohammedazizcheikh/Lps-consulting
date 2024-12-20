@@ -1,0 +1,129 @@
+<div class="custom-contact-form">
+    <form id="contactForm" onsubmit="sendEmail(); return false;">
+        <!-- Personal Information -->
+        <h2>Personal Information</h2>
+        <div class="personal-info">
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone-number">Phone Number</label>
+                <input type="text" id="phone-number" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+        </div>
+
+        <!-- Address Information -->
+        <h2>Address Information</h2>
+        <div class="address-info">
+            <div class="form-group">
+                <label for="street">Street</label>
+                <input type="text" id="street" placeholder="Street" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" placeholder="City" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State/Region</label>
+                <input type="text" id="state" placeholder="State/Region" required>
+            </div>
+            <div class="form-group">
+                <label for="postal-code">Postal Code</label>
+                <input type="text" id="postal-code" placeholder="Postal Code" required>
+            </div>
+            <div class="form-group">
+                <label for="nationality">Nationality</label>
+                <input type="text" id="nationality" placeholder="Nationality" required>
+            </div>
+        </div>
+
+        <!-- Job Details -->
+        <h2>Job Details</h2>
+        <div class="job-info">
+            <div class="form-group">
+                <label for="job-type">Postuler Pour Un Post</label>
+                <select id="job-type">
+                    <option value="intern">Intern</option>
+                    <option value="part-time">Part Time</option>
+                    <option value="remote">Remote</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="additional-info">Additional Information</label>
+            <textarea id="additional-info" placeholder="Additional Information"></textarea>
+        </div>
+
+        <!-- File Upload -->
+        <!-- <div class="form-group">
+            <label class="upload-label">
+                <svg class="icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                </svg>
+                <span>Select a file</span>
+                <input type='file' class="file-input" id="file-upload" />
+            </label>
+        </div> -->
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<script>
+function sendEmail() {
+    // Get form field values
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const phoneNumber = document.getElementById('phone-number').value;
+    const email = document.getElementById('email').value;
+    const street = document.getElementById('street').value;
+    const city = document.getElementById('city').value;
+    const state = document.getElementById('state').value;
+    const postalCode = document.getElementById('postal-code').value;
+    const nationality = document.getElementById('nationality').value;
+    const jobType = document.getElementById('job-type').value;
+    const additionalInfo = document.getElementById('additional-info').value;
+
+    // Get the file input element and check if a file is selected
+    const fileInput = document.getElementById('file-upload');
+    const file = fileInput.files[0];
+
+    // Construct the message body with form data
+    let messageBody = `
+        First Name: ${firstName}\n
+        Last Name: ${lastName}\n
+        Phone Number: ${phoneNumber}\n
+        Email Address: ${email}\n
+        Street: ${street}\n
+        City: ${city}\n
+        State/Region: ${state}\n
+        Postal Code: ${postalCode}\n
+        Nationality: ${nationality}\n
+        Job Type: ${jobType}\n
+        Additional Information: ${additionalInfo}\n
+    `;
+
+    // Encode message body and create Gmail link
+    const subject = encodeURIComponent("Job Application Submission");
+    const body = encodeURIComponent(messageBody);
+
+    let gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=lps.consulting1@gmail.com&su=${subject}&body=${body}`;
+
+    // If file is selected, inform the user that they need to attach the file manually
+    if (file) {
+        alert("Please manually attach the selected file after the email window opens.");
+    }
+
+    // Open Gmail with pre-filled form data (email body) in a new window
+    window.open(gmailLink, '_blank');
+}
+</script>
